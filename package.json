@@ -1,0 +1,26 @@
+{
+  "name": "todo-mvc",
+  "version": "1.0.0",
+  "description": "Todo MVC Project using vanilla JavaScript. Based on http://todomvc.com.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thirte3n/todo-mvc.git"
+  },
+  "author": "Justin Gajitos",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/thirte3n/todo-mvc/issues"
+  },
+  "homepage": "https://github.com/thirte3n/todo-mvc#readme",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
