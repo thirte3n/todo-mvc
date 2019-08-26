@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link rel="shortcut icon" href="images/favicon.ico">
-  <title>Homepage</title>
+  <title>Todo MVC</title>
 </head>
 
 <body class="container">
@@ -18,14 +18,16 @@
   </header>
 
   <main>
+    <input id="toggle-all"  class="toggle-all" type="checkbox" ></input>
+    <label for="toggle-all" class="toggle-button"></label>
     <form class="todo-form">
-      <input type="text" class="todo-new-entry" placeholder="What needs to be done?"></input>
+      <input type="text" class="todo-new-entry" placeholder="What needs to be done?" autofocus></input>
     </form>
     <div>
       <ul class="todos">
-          <li><span><input type="checkbox"><label class="todo-entry-text">Todo no. 1</label><button>x</button></span></li>
-          <li><span><input type="checkbox"><label class="todo-entry-text">Todo no. 2</label><button>x</button></span></li>
-          <li><span><input type="checkbox"><label class="todo-entry-text">Todo no. 3</label><button>x</button></span></li>
+          <li><span><input type="checkbox"><label class="todo-entry-text">Todo no. 1</label><button>×</button></span></li>
+          <li><span><input type="checkbox"><label class="todo-entry-text">Todo no. 2</label><button>×</button></span></li>
+          <li><span><input type="checkbox"><label class="todo-entry-text">Todo no. 3</label><button>×</button></span></li>
       </ul>
     </div>
   </main>

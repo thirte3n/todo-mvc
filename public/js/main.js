@@ -3,6 +3,21 @@ const todoNewEntry = document.querySelector('.todo-new-entry');
 const todos = document.querySelector('.todos');
 let editedTodoEntry = '';
 
+let todoEntries = [
+  {
+    todo: 'Todo no. 1',
+    isCompleted: false
+  },
+  {
+    todo: 'Todo no. 2',
+    isCompleted: false
+  },
+  {
+    todo: 'Todo no. 3',
+    isCompleted: false
+  }
+];
+
 function addNewTodo(e) {
   e.preventDefault();
   if (!todoNewEntry.value.trim()) {
@@ -30,7 +45,7 @@ function formatChild() {
   label.appendChild(document.createTextNode(todoNewEntry.value));
 
   const deleteBtn = document.createElement('button');
-  deleteBtn.appendChild(document.createTextNode('x'));
+  deleteBtn.appendChild(document.createTextNode('×'));
 
   span.appendChild(checkbox);
   span.appendChild(label);
@@ -53,6 +68,8 @@ function removeTodo(e) {
 
 function editTodo(e) {
   if (e.target.classList.contains('todo-entry-text')) {
+  // console.log(e.target)
+  // if (false) {
     const li = e.target.parentElement.parentElement;
     let currentText = e.target.textContent;
     li.classList.toggle('editing');

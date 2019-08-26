@@ -1,17 +1,21 @@
 body, * {
   margin: 0px;
   padding: 0px;
-  background-color: rgb(245, 245, 245);
   font-family: arial;
+  box-sizing: border-box;
 }
 
 .container {
-  display: grid;
+  background-color: rgb(245, 245, 245);
+  width: 550px;
+  margin: 0 auto;
+  border-bottom: 1px;
 }
 
 .done {
   text-decoration: line-through;
   color: #d9d9d9;
+  transition: color 0.4s;
 }
 
 .editing > span {
@@ -22,10 +26,132 @@ body, * {
   font-size: 6.25rem;
   font-weight: 100;
   color: rgba(175, 47, 47, 0.15);
+  text-align: center;
+  margin: 10px auto;
+}
+
+main {
+  position: relative;
+  background-color: #FFF;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  font-size: 24px;
+}
+
+.toggle-all {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: -1;
+}
+
+.toggle-all + label::before {
+  content: '❯';
+  color: #e6e6e6;
+  color:red;
+  padding: 10px 27px 10px 27px;
+}
+
+.toggle-all + label {
+  position: absolute;
+  transform: rotate(90deg);
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 34px;
+}
+
+.todo-new-entry {
+  width: 100%;
+  border: none;
+  font-size: 24px;
+  padding: 16px 16px 16px 60px;
+}
+
+input::placeholder {
+  color: #e6e6e6;
+  font-style: italic;
+}
+
+.todos {
+  position: relative;
+}
+
+.checkbox {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  height: 40px;
+  width: 40px;
+
+}
+
+.todos li {
+  display: block;
+  line-height: 1.2;
+  color: #4d4d4d;
+  position: relative;
+}
+
+.todos li span {
+  transition: color 0.4s;
+}
+
+.todos li:hover button {
+  opacity: 100;
+}
+
+.todos button {
+  opacity: 0;
+  color: #cc9a9a;
+  position: absolute;
+  right: 10px;
+  top: 0;
+  bottom: 0;
+  float: right;
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  vertical-align: baseline;
+  margin: auto 0;
+  border: none;
+  background: none;
+  transition: color 0.2s ease-out;
+}
+
+.todos button:hover {
+  transition: color 0.2s ease-out;
+  color: #af5b5e;
+
+}
+
+
+.todo-entry-text {
+  display: block;
+  padding: 15px 15px 15px 60px;
+}
+
+.new-text-form {
+  display: block;
+  width: 100%;
+}
+
+footer {
+  margin: 65px auto 0;
+  line-height: 1.4rem;
+  font-size: 0.625rem;
+  text-align: center;
 }
 
 footer * {
-  font-size: 0.625rem;
   color: #bfbfbf;
-  line-height: 1;
+  text-decoration: none;
 }
+
+footer * a:hover{
+  text-decoration: underline;
+}
+
+width: 550px;
