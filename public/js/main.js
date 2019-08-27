@@ -2,10 +2,15 @@ const todoForm = document.querySelector('.todo-form');
 const todoNewEntry = document.querySelector('.todo-new-entry');
 const todos = document.querySelector('.todos');
 const todoFooter = document.querySelector('.todo-footer');
+
+if (!localStorage.getItem('todos')) {
+  localStorage.setItem('items', JSON.stringify([]));
+}
 const localData = JSON.parse(localStorage.getItem('todos'));
+let todoList = localData;
+
 let editedTodoEntry = '';
 
-let todoList = localData;
 
 function loadTodoList() {
   todoList.forEach(entry => {
