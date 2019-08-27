@@ -1,27 +1,17 @@
 const todoForm = document.querySelector('.todo-form');
 const todoNewEntry = document.querySelector('.todo-new-entry');
 const todos = document.querySelector('.todos');
+const todoFooter = document.querySelector('.todo-footer');
+const localData = JSON.parse(localStorage.getItem('todos'));
 let editedTodoEntry = '';
 
-let todoList = [
-  {
-    todo: 'Todo no. 1',
-    isCompleted: true
-  },
-  {
-    todo: 'Todo no. 2',
-    isCompleted: false
-  },
-  {
-    todo: 'Todo no. 3',
-    isCompleted: false
-  }
-];
+let todoList = localData;
 
 function loadTodoList() {
   todoList.forEach(entry => {
     appendTodos(entry);
   });
+  toggleFooter();
   console.log(todoList);
 }
 
@@ -69,6 +59,7 @@ function addNewTodo(e) {
       isCompleted: false
     }
   );
+  localStorage.setItem('todos', JSON.stringify(todoList));
 
   clearTodos();
   loadTodoList();
@@ -83,6 +74,7 @@ function toggleDone(e) {
     const index = Array.prototype.indexOf.call(todos.children, li);
 
     todoList[index].isCompleted = e.target.checked;
+    localStorage.setItem('todos', JSON.stringify(todoList));
   }
 }
 
@@ -96,6 +88,7 @@ function removeTodo(e) {
 
     clearTodos();
     loadTodoList();
+    localStorage.setItem('todos', JSON.stringify(todoList));
   }
 }
 
@@ -126,9 +119,23 @@ function commitChange(e) {
     const li = e.target.parentElement;
     const index = Array.prototype.indexOf.call(todos.children, li);
 
-    todoList[index].todo = editedTodoEntry;
-    clearTodos();
-    loadTodoList();
+    if (todoList[index].todo !== editedTodoEntry) {
+      todoList[index].todo = editedTodoEntry;
+      clearTodos();
+      loadTodoList();
+      localStorage.setItem('todos', JSON.stringify(todoList));
+    } else {
+      li.classList.toggle('editing');
+      li.removeChild(e.target);
+    }
+  }
+}
+
+function toggleFooter() {
+  if (todoList.length > 0 && todoFooter.classList.contains('hidden')) {
+    todoFooter.classList.remove('hidden');
+  } else if (todoList.length === 0 && !todoFooter.classList.contains('hidden')) {
+    todoFooter.classList.add('hidden');
   }
 }
 
@@ -146,7 +153,7 @@ todos.addEventListener('input', updateTodoText);
 
 /*
 TODO
-  Local Storage
+  Footer css
   Filter
   Mark all as done
   Number of items left

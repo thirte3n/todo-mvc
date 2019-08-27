@@ -147,6 +147,34 @@ input::placeholder {
   box-shadow: inset 2px 2px 1px #eeeeee, inset -2px -2px 1px #eeeeee;
 }
 
+.hidden {
+  display: none;
+}
+
+.todo-footer {
+  display: flex;
+  font-size: 0.875rem;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.items-left {
+
+}
+
+.filter {
+  display: flex;
+}
+
+.filter > li {
+  list-style: none;
+}
+
+.clear-completed {
+  border: none;
+  background-color: #FFF;
+}
 
 footer {
   margin: 65px auto 0;
