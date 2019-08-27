@@ -147,10 +147,6 @@ input::placeholder {
   box-shadow: inset 2px 2px 1px #eeeeee, inset -2px -2px 1px #eeeeee;
 }
 
-.hidden {
-  display: none;
-}
-
 .todo-footer {
   display: flex;
   font-size: 0.875rem;
@@ -192,4 +188,6 @@ footer * a:hover{
   text-decoration: underline;
 }
 
-width: 550px;
+.hidden {
+  display: none;
+}
