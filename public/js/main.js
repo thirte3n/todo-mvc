@@ -4,7 +4,7 @@ const todos = document.querySelector('.todos');
 const todoFooter = document.querySelector('.todo-footer');
 
 if (!localStorage.getItem('todos')) {
-  localStorage.setItem('items', JSON.stringify([]));
+  localStorage.setItem('todos', JSON.stringify([]));
 }
 const localData = JSON.parse(localStorage.getItem('todos'));
 let todoList = localData;
