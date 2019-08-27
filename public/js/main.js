@@ -3,10 +3,10 @@ const todoNewEntry = document.querySelector('.todo-new-entry');
 const todos = document.querySelector('.todos');
 let editedTodoEntry = '';
 
-let todoEntries = [
+let todoList = [
   {
     todo: 'Todo no. 1',
-    isCompleted: false
+    isCompleted: true
   },
   {
     todo: 'Todo no. 2',
@@ -19,23 +19,26 @@ let todoEntries = [
 ];
 
 function loadTodoList() {
-  todoEntries.forEach(entry => {
-    appendList(entry);
+  todoList.forEach(entry => {
+    appendTodos(entry);
   });
-  console.log(todoEntries);
+  console.log(todoList);
 }
 
-function clearTodoList() {
+function clearTodos() {
   todos.innerHTML = '';
 }
 
-function appendList(entry) {
+function appendTodos(entry) {
   const li = document.createElement('li');
   const span = document.createElement('span');
 
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
   checkbox.checked = entry.isCompleted;
+  if (entry.isCompleted) {
+    span.classList.toggle('done');
+  }
 
   const label = document.createElement('label');
   label.classList.add('todo-entry-text');
@@ -60,14 +63,14 @@ function addNewTodo(e) {
     return;
   }
 
-  todoEntries.push(
+  todoList.push(
     {
       todo: todoNewEntry.value,
       isCompleted: false
     }
   );
 
-  clearTodoList();
+  clearTodos();
   loadTodoList();
 
   todoNewEntry.value = '';
@@ -75,11 +78,11 @@ function addNewTodo(e) {
 
 function toggleDone(e) {
   if (e.target.type === 'checkbox') {
-    // e.target.parentElement.classList.toggle('done');
+    e.target.parentElement.classList.toggle('done');
     const li = e.target.parentElement.parentElement;
     const index = Array.prototype.indexOf.call(todos.children, li);
 
-    todoEntries[index].isCompleted = e.target.checked;
+    todoList[index].isCompleted = e.target.checked;
   }
 }
 
@@ -89,9 +92,9 @@ function removeTodo(e) {
     const li = e.target.parentElement.parentElement;
     const index = Array.prototype.indexOf.call(todos.children, li);
 
-    todoEntries.splice(index, 1);
+    todoList.splice(index, 1);
 
-    clearTodoList();
+    clearTodos();
     loadTodoList();
   }
 }
@@ -123,8 +126,8 @@ function commitChange(e) {
     const li = e.target.parentElement;
     const index = Array.prototype.indexOf.call(todos.children, li);
 
-    todoEntries[index].todo = editedTodoEntry;
-    clearTodoList();
+    todoList[index].todo = editedTodoEntry;
+    clearTodos();
     loadTodoList();
   }
 }
@@ -140,3 +143,12 @@ todos.addEventListener('click', removeTodo);
 todos.addEventListener('dblclick', editTodo);
 todos.addEventListener('blur', commitChange, true);
 todos.addEventListener('input', updateTodoText);
+
+/*
+TODO
+  Local Storage
+  Filter
+  Mark all as done
+  Number of items left
+  Clear completed
+*/
