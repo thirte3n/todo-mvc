@@ -2,6 +2,8 @@ const todoForm = document.querySelector('.todo-form');
 const todoNewEntry = document.querySelector('.todo-new-entry');
 const todos = document.querySelector('.todos');
 const todoFooter = document.querySelector('.todo-footer');
+const itemsLeft = document.querySelector('.items-left');
+const clearBtn = document.querySelector('.clear-completed');
 
 if (!localStorage.getItem('todos')) {
   localStorage.setItem('todos', JSON.stringify([]));
@@ -17,7 +19,7 @@ function loadTodoList() {
     appendTodos(entry);
   });
   toggleFooter();
-  console.log(todoList);
+  displayNoOfItems();
 }
 
 function clearTodos() {
@@ -79,6 +81,7 @@ function toggleDone(e) {
     const index = Array.prototype.indexOf.call(todos.children, li);
 
     todoList[index].isCompleted = e.target.checked;
+    displayNoOfItems();
     localStorage.setItem('todos', JSON.stringify(todoList));
   }
 }
@@ -144,8 +147,38 @@ function toggleFooter() {
   }
 }
 
-function filter() {
+function displayNoOfItems() {
+  const itemLeft = todoList.filter(entry => entry.isCompleted == false).length;
 
+  if (itemLeft === 1) {
+    itemsLeft.textContent = '1 item left';
+  } else {
+    itemsLeft.textContent = `${itemLeft} items left`;
+  }
+
+  if (todoList.length !== itemLeft) {
+    clearBtn.classList.remove('faded');
+  } else {
+    clearBtn.classList.add('faded');
+  }
+}
+
+function clearList(e) {
+  if (e.target.classList.contains('clear-completed')) {
+    todoList = todoList.filter(todo => todo.isCompleted === false);
+    localStorage.setItem('todos', JSON.stringify(todoList));
+
+    clearTodos();
+    loadTodoList();
+  }
+}
+
+function filter(e) {
+  if (e.target.id === 'filter-active') {
+    console.log('active');
+  } else if (e.target.id === 'filter-completed') {
+    console.log('completed');
+  }
 }
 
 window.addEventListener('load', loadTodoList);
@@ -155,12 +188,13 @@ todos.addEventListener('click', removeTodo);
 todos.addEventListener('dblclick', editTodo);
 todos.addEventListener('blur', commitChange, true);
 todos.addEventListener('input', updateTodoText);
+todoFooter.addEventListener('click', clearList);
+todoFooter.addEventListener('click', filter);
 
 /*
 TODO
   Footer css
   Filter
   Mark all as done
-  Number of items left
-  Clear completed
+  Commit change on submit
 */
