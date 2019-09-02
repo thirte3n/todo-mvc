@@ -33,7 +33,6 @@ function renderTodoList() {
   toggleFooter();
   toggleToggleAllBtn();
   displayNoOfItems();
-
 }
 
 function appendTodos(entry) {
@@ -44,7 +43,7 @@ function appendTodos(entry) {
   checkbox.type = 'checkbox';
   checkbox.checked = entry.isCompleted;
   if (entry.isCompleted) {
-    span.classList.toggle('done');
+    li.classList.toggle('done');
   }
 
   const label = document.createElement('label');
@@ -85,11 +84,17 @@ function addNewTodo(e) {
 
 function toggleDone(e) {
   if (e.target.type === 'checkbox') {
-    e.target.parentElement.classList.toggle('done');
     const li = e.target.parentElement.parentElement;
     const index = Array.prototype.indexOf.call(todos.children, li);
 
+    li.classList.toggle('done');
     todoList[index].isCompleted = e.target.checked;
+
+    if ([...todos.childNodes].every(entry => entry.classList.contains('done')) === false) {
+      const checkAll = document.querySelector('#toggle-all');
+      checkAll.checked = false;
+    }
+
     displayNoOfItems();
     localStorage.setItem('todos', JSON.stringify(todoList));
   }
@@ -102,8 +107,6 @@ function removeTodo(e) {
 
     todoList.splice(index, 1);
 
-    // clearTodos();
-    // loadTodoList();
     renderTodoList();
     localStorage.setItem('todos', JSON.stringify(todoList));
   }
@@ -223,9 +226,20 @@ function filterEntries(entry) {
 }
 
 function toggleAll(e) {
+  const checkbox = todos.querySelectorAll('input');
+
+  todos.childNodes.forEach(entry => {
+    if (e.target.checked) {
+      entry.classList.add('done');
+    } else {
+      entry.classList.remove('done');
+    }
+  });
+  checkbox.forEach(box => box.checked = e.target.checked);
   todoList.forEach(entry => entry.isCompleted = e.target.checked);
+
   localStorage.setItem('todos', JSON.stringify(todoList));
-  renderTodoList();
+  displayNoOfItems();
 }
 
 function toggleToggleAllBtn() {
