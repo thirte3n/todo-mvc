@@ -97,6 +97,11 @@ function toggleDone(e) {
 
     displayNoOfItems();
     localStorage.setItem('todos', JSON.stringify(todoList));
+
+    const filter = document.querySelector('.selected');
+    if (filter.id !== 'filter-all') {
+      renderTodoList();
+    }
   }
 }
 
@@ -240,6 +245,11 @@ function toggleAll(e) {
 
   localStorage.setItem('todos', JSON.stringify(todoList));
   displayNoOfItems();
+
+  const filter = document.querySelector('.selected');
+  if (filter.id !== 'filter-all') {
+    renderTodoList();
+  }
 }
 
 function toggleToggleAllBtn() {
