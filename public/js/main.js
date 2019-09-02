@@ -14,17 +14,23 @@ let todoList = localData;
 
 let editedTodoEntry = '';
 
-
 function loadTodoList() {
-  todoList.forEach(entry => {
-    appendTodos(entry);
-  });
-  toggleFooter();
-  displayNoOfItems();
+  todoList
+    .filter(filterEntries)
+    .forEach(entry => {
+      appendTodos(entry);
+    });
 }
 
 function clearTodos() {
   todos.innerHTML = '';
+}
+
+function renderTodoList() {
+  clearTodos();
+  loadTodoList();
+  toggleFooter();
+  displayNoOfItems();
 }
 
 function appendTodos(entry) {
@@ -69,8 +75,7 @@ function addNewTodo(e) {
   );
   localStorage.setItem('todos', JSON.stringify(todoList));
 
-  clearTodos();
-  loadTodoList();
+  renderTodoList();
 
   todoNewEntry.value = '';
 }
@@ -94,8 +99,9 @@ function removeTodo(e) {
 
     todoList.splice(index, 1);
 
-    clearTodos();
-    loadTodoList();
+    // clearTodos();
+    // loadTodoList();
+    renderTodoList();
     localStorage.setItem('todos', JSON.stringify(todoList));
   }
 }
@@ -129,8 +135,7 @@ function commitChange(e) {
 
     if (todoList[index].todo !== editedTodoEntry) {
       todoList[index].todo = editedTodoEntry;
-      clearTodos();
-      loadTodoList();
+      renderTodoList();
       localStorage.setItem('todos', JSON.stringify(todoList));
     } else {
       li.classList.toggle('editing');
@@ -167,8 +172,7 @@ function clearList(e) {
   if (e.target.classList.contains('clear-completed')) {
     todoList = todoList.filter(todo => todo.isCompleted === false);
     localStorage.setItem('todos', JSON.stringify(todoList));
-    clearTodos();
-    loadTodoList();
+    renderTodoList();
   }
 }
 
@@ -181,10 +185,22 @@ function toggleFilter(e) {
         filter.classList.remove('selected');
       }
     });
+    renderTodoList();
   }
 }
 
-window.addEventListener('load', loadTodoList);
+function filterEntries(entry) {
+  const filter = document.querySelector('.selected');
+  if (filter.id === 'filter-all') {
+    return entry;
+  } else if (filter.id === 'filter-active') {
+    return entry.isCompleted === false;
+  } else if (filter.id === 'filter-completed') {
+    return entry.isCompleted === true;
+  }
+}
+
+window.addEventListener('load', renderTodoList);
 todoForm.addEventListener('submit', addNewTodo);
 todos.addEventListener('click', toggleDone);
 todos.addEventListener('click', removeTodo);
@@ -197,7 +213,6 @@ todoFooter.addEventListener('click', toggleFilter);
 /*
 TODO
   Footer css
-  Filter
   Mark all as done
   Commit change on submit
 */
