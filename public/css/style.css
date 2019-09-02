@@ -182,6 +182,7 @@ input::placeholder {
 
 .filter > li:hover {
   border: 1px solid black;
+  cursor: pointer;
 }
 
 .selected {

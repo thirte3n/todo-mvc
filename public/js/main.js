@@ -4,6 +4,7 @@ const todos = document.querySelector('.todos');
 const todoFooter = document.querySelector('.todo-footer');
 const itemsLeft = document.querySelector('.items-left');
 const clearBtn = document.querySelector('.clear-completed');
+const filters = todoFooter.querySelectorAll('li');
 
 if (!localStorage.getItem('todos')) {
   localStorage.setItem('todos', JSON.stringify([]));
@@ -88,7 +89,6 @@ function toggleDone(e) {
 
 function removeTodo(e) {
   if (e.target.type === 'submit') {
-    // todos.removeChild(e.target.parentElement.parentElement);
     const li = e.target.parentElement.parentElement;
     const index = Array.prototype.indexOf.call(todos.children, li);
 
@@ -164,7 +164,6 @@ function displayNoOfItems() {
 }
 
 function clearList(e) {
-  console.log(e.target);
   if (e.target.classList.contains('clear-completed')) {
     todoList = todoList.filter(todo => todo.isCompleted === false);
     localStorage.setItem('todos', JSON.stringify(todoList));
@@ -173,11 +172,15 @@ function clearList(e) {
   }
 }
 
-function filter(e) {
-  if (e.target.id === 'filter-active') {
-    console.log('active');
-  } else if (e.target.id === 'filter-completed') {
-    console.log('completed');
+function toggleFilter(e) {
+  if (e.target.nodeName === 'LI') {
+    filters.forEach(filter => {
+      if (filter.id === e.target.id) {
+        filter.classList.add('selected');
+      } else {
+        filter.classList.remove('selected');
+      }
+    });
   }
 }
 
@@ -189,7 +192,7 @@ todos.addEventListener('dblclick', editTodo);
 todos.addEventListener('blur', commitChange, true);
 todos.addEventListener('input', updateTodoText);
 todoFooter.addEventListener('click', clearList);
-todoFooter.addEventListener('click', filter);
+todoFooter.addEventListener('click', toggleFilter);
 
 /*
 TODO
