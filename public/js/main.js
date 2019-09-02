@@ -164,10 +164,10 @@ function displayNoOfItems() {
 }
 
 function clearList(e) {
+  console.log(e.target);
   if (e.target.classList.contains('clear-completed')) {
     todoList = todoList.filter(todo => todo.isCompleted === false);
     localStorage.setItem('todos', JSON.stringify(todoList));
-
     clearTodos();
     loadTodoList();
   }

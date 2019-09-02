@@ -189,10 +189,16 @@ input::placeholder {
 }
 
 .clear-completed {
+  position: relative;
   float: right;
   border: none;
   color: #777;
   background-color: #FFF;
+}
+
+.clear-completed:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 footer {
