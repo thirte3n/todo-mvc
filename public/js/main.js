@@ -128,7 +128,7 @@ function updateTodoText(e) {
   editedTodoEntry = e.target.value;
 }
 
-function commitChange(e) {
+function blurCommitChange(e) {
   if (e.target.classList.contains('new-text-form')) {
     const li = e.target.parentElement;
     const index = Array.prototype.indexOf.call(todos.children, li);
@@ -141,6 +141,25 @@ function commitChange(e) {
       li.classList.toggle('editing');
       li.removeChild(e.target);
     }
+  }
+}
+
+function keyupCommitChange(e) {
+  const li = e.target.parentElement;
+  const index = Array.prototype.indexOf.call(todos.children, li);
+
+  if (e.keyCode === 13) {
+    if (todoList[index].todo !== editedTodoEntry) {
+      todoList[index].todo = editedTodoEntry;
+      renderTodoList();
+      localStorage.setItem('todos', JSON.stringify(todoList));
+    } else {
+      li.classList.toggle('editing');
+      li.removeChild(e.target);
+    }
+  } else if (e.keyCode === 27) {
+    li.classList.toggle('editing');
+    li.removeChild(e.target);
   }
 }
 
@@ -205,7 +224,8 @@ todoForm.addEventListener('submit', addNewTodo);
 todos.addEventListener('click', toggleDone);
 todos.addEventListener('click', removeTodo);
 todos.addEventListener('dblclick', editTodo);
-todos.addEventListener('blur', commitChange, true);
+todos.addEventListener('blur', blurCommitChange, true);
+todos.addEventListener('keyup', keyupCommitChange);
 todos.addEventListener('input', updateTodoText);
 todoFooter.addEventListener('click', clearList);
 todoFooter.addEventListener('click', toggleFilter);
@@ -214,5 +234,4 @@ todoFooter.addEventListener('click', toggleFilter);
 TODO
   Footer css
   Mark all as done
-  Commit change on submit
 */
