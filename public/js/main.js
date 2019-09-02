@@ -5,6 +5,7 @@ const todoFooter = document.querySelector('.todo-footer');
 const itemsLeft = document.querySelector('.items-left');
 const clearBtn = document.querySelector('.clear-completed');
 const filters = todoFooter.querySelectorAll('li');
+const toggleAllBtn = document.querySelector('#toggle-all');
 
 if (!localStorage.getItem('todos')) {
   localStorage.setItem('todos', JSON.stringify([]));
@@ -30,7 +31,9 @@ function renderTodoList() {
   clearTodos();
   loadTodoList();
   toggleFooter();
+  toggleToggleAllBtn();
   displayNoOfItems();
+
 }
 
 function appendTodos(entry) {
@@ -219,6 +222,18 @@ function filterEntries(entry) {
   }
 }
 
+function toggleAll(e) {
+  todoList.forEach(entry => entry.isCompleted = e.target.checked);
+  localStorage.setItem('todos', JSON.stringify(todoList));
+  renderTodoList();
+}
+
+function toggleToggleAllBtn() {
+  if (todoList.length === 0) {
+    toggleAllBtn.checked = false;
+  }
+}
+
 window.addEventListener('load', renderTodoList);
 todoForm.addEventListener('submit', addNewTodo);
 todos.addEventListener('click', toggleDone);
@@ -229,9 +244,4 @@ todos.addEventListener('keyup', keyupCommitChange);
 todos.addEventListener('input', updateTodoText);
 todoFooter.addEventListener('click', clearList);
 todoFooter.addEventListener('click', toggleFilter);
-
-/*
-TODO
-  Footer css
-  Mark all as done
-*/
+toggleAllBtn.addEventListener('click', toggleAll);
