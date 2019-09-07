@@ -41,6 +41,7 @@ function appendTodos(entry) {
 
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
+  checkbox.classList.add('checkbox');
   checkbox.checked = entry.isCompleted;
   if (entry.isCompleted) {
     li.classList.toggle('done');
