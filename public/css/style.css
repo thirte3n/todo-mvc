@@ -239,3 +239,76 @@ footer * a:hover{
 .faded {
   opacity: 0;
 }
+
+@media(max-width: 768px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    margin: 0;
+  }
+
+  #header-text {
+    font-size: 5rem;
+  }
+
+  main {
+    margin: 0 1.5rem;
+    font-size: 1rem;
+  }
+
+  .todo-new-entry {
+    font-size: 1.2rem;
+  }
+
+  .todo-footer {
+    font-size: .8rem;
+  }
+
+  .clear-completed {
+    font-size: .8rem;
+  }
+
+  .new-text-form {
+    display: block;
+    position: relative;
+    width: calc(100vw - 92px);
+    border: none;
+    font-size: 1rem;
+    padding: 14.5px 16px;
+    color: inherit;
+    border: solid #999 1px;
+    box-shadow: inset 0px -1px 5px 0 rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    margin: 0 0 0 43px;
+  }
+}
+
+@media(max-width: 470px) {
+  .todo-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 1rem;
+    height: auto;
+    font-size: .75rem;
+  }
+
+  .filter {
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+  }
+
+  .items-left {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+
+  .clear-completed {
+    float: none;
+    position: initial;
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    font-size: .75rem;
+  }
+}
